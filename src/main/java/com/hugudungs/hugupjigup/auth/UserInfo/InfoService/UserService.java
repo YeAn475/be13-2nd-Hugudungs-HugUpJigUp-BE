@@ -1,4 +1,4 @@
-package com.hugudungs.hugupjigup.auth.UserInfo.service;
+package com.hugudungs.hugupjigup.auth.UserInfo.InfoService;
 
 import com.hugudungs.hugupjigup.auth.UserInfo.dto.user.UpdateUserMenteeProfileDTO;
 import com.hugudungs.hugupjigup.auth.UserInfo.dto.user.UpdateUserMentorProfileDTO;

@@ -1,4 +1,4 @@
-package com.hugudungs.hugupjigup.auth.UserInfo.service;
+package com.hugudungs.hugupjigup.auth.UserInfo.InfoService;
 
 import com.hugudungs.hugupjigup.auth.UserInfo.dto.user.UpdateUserMenteeProfileDTO;
 import com.hugudungs.hugupjigup.auth.UserInfo.dto.user.UpdateUserMentorProfileDTO;
@@ -18,9 +18,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements com.hugudungs.hugupjigup.auth.UserInfo.service.UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;

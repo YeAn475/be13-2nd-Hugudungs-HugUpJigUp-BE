@@ -4,7 +4,7 @@ import com.hugudungs.hugupjigup.auth.UserInfo.dto.user.UpdateUserMenteeProfileDT
 import com.hugudungs.hugupjigup.auth.UserInfo.dto.user.UpdateUserMentorProfileDTO;
 import com.hugudungs.hugupjigup.auth.UserInfo.dto.user.UpdateUserProfileDTO;
 import com.hugudungs.hugupjigup.auth.UserInfo.dto.user.UserProfileResponseDTO;
-import com.hugudungs.hugupjigup.auth.UserInfo.service.UserService;
+import com.hugudungs.hugupjigup.auth.UserInfo.InfoService   .UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -22,7 +22,7 @@ public class UserControllerImpl implements UserController {
     public UserControllerImpl(UserService userService) {
         this.userService = userService;
     }
-
+//
     @Override
     @Operation(summary = "유저 프로필 조회", description = "유저의 프로필을 조회합니다.")
     @ApiResponses({
