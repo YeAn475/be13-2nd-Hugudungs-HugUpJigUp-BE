@@ -1,7 +1,10 @@
 package com.hugudungs.hugupjigup.board.free.service;
 
+import com.hugudungs.hugupjigup.comment.freecomment.data.FreeCommentRepository;
+import com.hugudungs.hugupjigup.comment.freecomment.data.dto.FreeCommentGenerationResponseDto;
 import com.hugudungs.hugupjigup.common.enums.BoardType;
 import com.hugudungs.hugupjigup.data.entity.board.Free;
+import com.hugudungs.hugupjigup.data.entity.comment.FreeComment;
 import com.hugudungs.hugupjigup.data.entity.user.User;
 import com.hugudungs.hugupjigup.board.free.data.dto.FreeCreateRequestDto;
 import com.hugudungs.hugupjigup.board.free.data.dto.FreeSearchRequestDto;
@@ -15,11 +18,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class FreeServiceImpl implements FreeService {
     private final FreeRepository freeRepository;
     private final UserRepository userRepository;
+    private final FreeCommentRepository freeCommentRepository;
 
     @Override
     @Transactional
@@ -28,10 +35,11 @@ public class FreeServiceImpl implements FreeService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
 
         Free freePost = Free.builder()
-                .boardType(BoardType.FREE)
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
                 .author(user)
+                .boardType(requestDto.getBoardType())
+                .comments(new ArrayList<>())
                 .build();
 
         Free savedFree = freeRepository.save(freePost);
@@ -89,6 +97,11 @@ public class FreeServiceImpl implements FreeService {
         Free free = freeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
-        return FreeSearchResponseDto.fromEntity(free);
+        List<FreeComment> commentEntities = freeCommentRepository.findByFreeId(id);
+        List<FreeCommentGenerationResponseDto> commentDtos = commentEntities.stream()
+                .map(FreeCommentGenerationResponseDto::fromEntity)
+                .toList();
+
+        return FreeSearchResponseDto.fromEntity(free, commentDtos);
     }
 }
